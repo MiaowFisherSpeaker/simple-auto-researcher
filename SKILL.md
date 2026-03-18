@@ -1,5 +1,5 @@
 ---
-name: auto-researcher
+name: simple-auto-researcher
 description: 自动化学术研究助手 - 搜索→下载→阅读→归档→创新点生成验证
 metadata:
   {
@@ -285,6 +285,37 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 
 ---
 
+### 💡 ❓ 创新点审查 任务
+
+**触发条件**：每天晚上22:00
+
+**工作目录**：`“AutoResearcher项目根目录”`
+
+**执行步骤**：
+
+1. **验证**：检查 `idea/` 下的已验证的创新点，再次
+   - 使用用户“联网搜索偏好”搜集资料验证可行性
+   - 结果保存到 `idea/viewer/ideaViewer_YYYY-MM-DD.md`
+   - 除了联网搜索，还要结合今日所有知识
+   - 验证标准：①前人是否已做 ②理论可行性 ③实际可操作性
+   - 验证后：可行 → 不变；不可行/已有人做的差不多了 → 移至 `idea/deprecated/`并及时做好记录
+2. **通知**：验证完成后，根据用户的“消息通知偏好”按照“通知内容”的指定格式，输出通知消息。如果是再次审查失败的，也要通知。
+
+**⚠️ Token 节省策略**：
+
+- 每次只读取当天的日归档、本周的周归档（没有就算了）
+- 优先使用 rethink.md（已压缩的知识体系）
+- 写 memory 时保持简短（每条 ≤ 100 字），一定要在记忆中把这个创新点相关的内容做出批判性思考，不是直接删除，也不是直接说原来的不行，要变为哪里不行，哪里还可以做的更好。
+
+**输出文件**：
+
+- `idea/idea_*.md`（已验证的idea经过验证后还放这里）
+- `idea/deprecated/idea_*.md`（已验证的idea经过验证后废弃了）
+- `idea/viewer/ideaViewer_YYYY-MM-DD.md` （做好记录）
+- `memory/YYYY-MM-DD.md`（增量更新，但是这里要做批判性思考）
+
+---
+
 ### 🧠 Rethink 任务（知识体系重构）
 
 **触发条件**：每 3 小时
@@ -461,6 +492,14 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 }
 ```
 
+9. 创新点审查任务
+
+```json
+{
+  "task": "执行 AutoResearcher 创新点审查任务"
+}
+```
+
 ## 🎮 控制命令
 
 通过以下任务消息控制定时任务系统：
@@ -485,22 +524,23 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 
 ### 首次配置
 
-手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 8 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。
+手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 9 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。
 
 ## 📝 日志文件
 
-| 文件                                   | 说明         |
-| -------------------------------------- | ------------ |
-| `logs/search/search_YYYY-MM-DD.md`     | 搜索记录     |
-| `logs/download/download_YYYY-MM-DD.md` | 下载记录     |
-| `logs/read/read_YYYY-MM-DD.md`         | 已读论文列表 |
+| 文件                                   | 说明             |
+| -------------------------------------- | ---------------- |
+| `logs/search/search_YYYY-MM-DD.md`     | 搜索记录         |
+| `logs/download/download_YYYY-MM-DD.md` | 下载记录         |
+| `logs/read/read_YYYY-MM-DD.md`         | 已读论文列表     |
+| `papers.md`                            | 类似数据库的文档 |
 
 ## ⚙️ 配置要求
 
 运行前确保：
 
 1. 项目目录存在：`“AutoResearcher项目根目录”`
-2. 网络访问正常（Google Scholar / ArXiv）
+2. 网络访问正常（Google Scholar / ArXiv），如果可以访问外网更好。
 3. 定时任务已正确配置工作目录
 
 ## 📌 注意事项
