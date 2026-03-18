@@ -40,10 +40,6 @@ metadata:
 AutoResearcher/                  # “AutoResearcher项目根目录”
 ├── papers.md                    # 论文总库（所有论文元信息汇总）
 ├── README.md                    # 项目说明
-├── logs/                        # 操作日志（按日期分离）
-│   ├── search_YYYY-MM-DD.md     # 搜索记录
-│   ├── download_YYYY-MM-DD.md   # 下载记录
-│   └── read_log.md              # 阅读记录（累计）
 ├── files/
 │   ├── downloaded/YYYY-MM-DD/   # 已下载论文 PDF + 阅读笔记
 │   └── tobedownloaded/          # 待下载论文记录（MD格式）
@@ -103,13 +99,13 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 1. 检查 `logs/search/search_YYYY-MM-DD.md` 中已标注为"已下载"的论文数量
 2. 按照上述工作量安排，如果已下载但未阅读的论文数量不足 5 篇，则需要额外搜索补充新的论文，确保本次搜索能产出 **5 篇新的待下载论文**，否则可以跳过本次搜索任务，并做好日志记录。
 3. 根据用户“联网搜索偏好” 搜索 **5 篇**关于用户“研究方向”的最新论文（根据用户“偏好会议或者期刊”以及用户“论文要求”偏好的“论文时间年限”进行搜索）
-4. 将搜索结果记录到 `logs/search_YYYY-MM-DD.md`（动态获取当前日期），包含：标题、作者、年份、链接、状态（待下载）
+4. 将搜索结果记录到 `logs/search/search_YYYY-MM-DD.md`（动态获取当前日期），包含：标题、作者、年份、链接、状态（待下载）
 5. 检查 `files/downloaded/`对应的日期目录是否已有，已有的跳过
 6. **更新总库**：将新搜索的论文添加到 `papers.md`进行妥善的管理。
 
 **输出文件**：
 
-- `logs/search_YYYY-MM-DD.md`
+- `logs/search/search_YYYY-MM-DD.md`
 - `papers.md`
 
 ---
@@ -131,14 +127,14 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 4. 将下载的 PDF 文件按照正确的格式命名并保存到 `files/downloaded/YYYY-MM-DD/` 目录下，命名格式：`{论文标题}.pdf`
    - 例如：`files/downloaded/26-03-18/Statistical_Analysis_Inverse_Entropy_RL.pdf`
 5. 如果下载失败，记录到 `files/tobedownloaded/YYYY-MM-DD.md`，包含：标题、作者、年份、链接、失败原因
-6. 更新 `logs/download_YYYY-MM-DD.md`，记录已下载论文列表
+6. 更新 `logs/download/download_YYYY-MM-DD.md`，记录已下载论文列表
 7. **更新总库**：将下载状态同步到 `papers.md`
 
 **输出文件**：
 
 - `files/downloaded/YYYY-MM-DD/*.pdf`
 - `files/tobedownloaded/YYYY-MM-DD.md`
-- `logs/download_YYYY-MM-DD.md`
+- `logs/download/download_YYYY-MM-DD.md`
 - `papers.md`
 
 ---
@@ -172,7 +168,7 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
    - 提取核心发现和创新点
    - 写入 “小龙虾”目录的`memory/YYYY-MM-DD.md`（每条 ≤ 100 字）
    - 包括：主题、关键方法、相关论文
-7. 更新 `logs/read_log.md`，记录已读论文列表
+7. 更新 `logs/read/read_YYYY-MM-DD.md`，记录已读论文列表
 8. **更新总库**：将论文阅读状态同步到 `papers.md`
 
 **⚠️ Token 节省策略**：
@@ -182,8 +178,8 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 
 **输出文件**：
 
-- `files/downloaded/YYYY-MM-DD/{论文标题}-HH-MM.md`
-- `logs/read_log.md`
+- `notes/YYYY-MM-DD/{论文标题}.md`
+- `logs/read/read_YYYY-MM-DD.md`
 - `papers.md`
 - `memory/YYYY-MM-DD.md`（每 10 篇总结一次）
 
@@ -218,11 +214,11 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 
 **执行步骤**：
 
-1. 读取 `papers.md` 和 `logs/read_log.md`，统计本日已阅读但未归档的论文数量
+1. 读取 `papers.md` 和 `logs/read/read_YYYY-MM-DD.md`，统计本日已阅读但未归档的论文数量
 2. 如果未归档论文数 ≥ 5 篇，执行后续归档步骤；否则跳过本次任务并记录日志
 3. 检查 `knowledgeOutput/daily/` 目录下今日是否已有归档文件（YYYY-MM-DD.md）
 4. **增量追加**未归档的论文；如果没有，**创建新文件**
-5. 读取 `files/downloaded/YYYY-MM-DD/*.md` 中尚未归档的论文
+5. `files/downloaded/YYYY-MM-DD/*.pdf` 中尚未归档的论文，找到对应的`notes/YYYY-MM-DD/*.md`
 6. **每篇论文都要归档**，不要遗漏！论文存放位置：根据论文来源，放入**对应日期YYYY-MM-DD分类**下，比如notes/2026-03-18/目录下的论文就放入knowledgeOutput/daily/2026-03-18.md的对应分类下。
 7. 每篇论文精简为 3-5 行，按照上述格式模板进行归档
 8. 放入后，进行整理，按照用户偏好的“研究方向的分类维度”进行分类归类，如果觉得某篇论文不重要，可以单独列一个分类“其他/不相关”，并说明理由。
@@ -256,7 +252,7 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
    - **重要**：不要一次性读取所有归档！
    - 优先读取 rethink.md + 最近 3 天归档
    - 如果有新归档，先快速浏览提取关键信息后可以增量读取
-2. **保存到** `idea/all/idea_a000001.md`（按字母+6位数字命名）
+2. **保存到** `idea/all/*.md`（按字母+6位数字命名）
    - 创新点文档命名规范：
      - `idea_a000001.md`（a开头，后面6位数字递增）
      - a结束后是b，依此类推，直到z结束；如果超过26个创新点，则继续使用aa、ab...依此类推。
@@ -393,15 +389,23 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 
 ## 🚀 使用方式
 
+### 研究方向
+
+请参考用户的“研究方向”，在执行搜索任务时，使用相关的关键词进行搜索，以确保搜索结果与用户的研究兴趣高度相关。
+
 ### 手动执行单个任务
 
 重要‼️ 请务必在执行任何任务前，先切换到“AutoResearcher项目根目录”，确保文件的位置正确
 
+1. 搜索任务，会自动得到关键词，如，用户“研究方向”相关的关键词
+
 ```json
 {
-  "task": "执行 AutoResearcher 搜索任务，关键词：{如，用户研究方向相关的关键词}"
+  "task": "执行 AutoResearcher 搜索任务"
 }
 ```
+
+2. 下载任务
 
 ```json
 {
@@ -409,11 +413,15 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 }
 ```
 
+3. 阅读任务
+
 ```json
 {
   "task": "执行 AutoResearcher 阅读任务"
 }
 ```
+
+4. 日归档任务
 
 ```json
 {
@@ -421,11 +429,15 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 }
 ```
 
+5. 创新点任务
+
 ```json
 {
   "task": "执行 AutoResearcher 创新点任务"
 }
 ```
+
+6. rethink任务
 
 ```json
 {
@@ -433,11 +445,15 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 }
 ```
 
+7. 周归档任务
+
 ```json
 {
   "task": "执行 AutoResearcher 周归档任务"
 }
 ```
+
+8. 备份任务
 
 ```json
 {
@@ -445,17 +461,39 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 }
 ```
 
-### 研究方向
+## 🎮 控制命令
 
-请参考用户的“研究方向”，在执行搜索任务时，使用相关的关键词进行搜索，以确保搜索结果与用户的研究兴趣高度相关。
+通过以下任务消息控制定时任务系统：
+
+| 操作             | 任务消息                                      |
+| ---------------- | --------------------------------------------- |
+| 启动全部定时任务 | "AutoResearcher 控制：启动全部定时任务"       |
+| 关闭全部定时任务 | "AutoResearcher 控制：关闭全部定时任务"       |
+| 启动单个任务     | "AutoResearcher 控制：启动【任务名】任务"     |
+| 关闭单个任务     | "AutoResearcher 控制：关闭【任务名】任务"     |
+| 手动触发某任务   | "AutoResearcher 控制：立即执行【任务名】任务" |
+| 查看任务状态     | "AutoResearcher 控制：查看当前定时任务状态"   |
+
+### 执行逻辑
+
+收到控制命令后，agent 调用 cron API 完成操作：
+
+- **启动** = `cron(action=add, job=...)` 逐个添加 cron job
+- **关闭** = `cron(action=update, jobId=xxx, patch={"enabled": false})`
+- **立即执行** = `cron(action=run, jobId=xxx)`
+- **查看状态** = `cron(action=list)` 并格式化输出
+
+### 首次配置
+
+手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 8 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。
 
 ## 📝 日志文件
 
-| 文件                          | 说明         |
-| ----------------------------- | ------------ |
-| `logs/search_YYYY-MM-DD.md`   | 搜索记录     |
-| `logs/download_YYYY-MM-DD.md` | 下载记录     |
-| `logs/read_log.md`            | 已读论文列表 |
+| 文件                                   | 说明         |
+| -------------------------------------- | ------------ |
+| `logs/search/search_YYYY-MM-DD.md`     | 搜索记录     |
+| `logs/download/download_YYYY-MM-DD.md` | 下载记录     |
+| `logs/read/read_YYYY-MM-DD.md`         | 已读论文列表 |
 
 ## ⚙️ 配置要求
 
