@@ -524,7 +524,7 @@ AutoResearcher/                  # “AutoResearcher项目根目录”
 
 ### 首次配置
 
-手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 9 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。
+手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 9 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。任务的命名方式都要按照“autoresearcher-{job_name}”这样子，方便统一管理。
 
 ## 📝 日志文件
 
