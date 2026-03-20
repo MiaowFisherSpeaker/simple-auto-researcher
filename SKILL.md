@@ -67,7 +67,7 @@ metadata:
  然后继续以下任务：
 ```
 
-## 📁 项目结构
+## 📁 工作目录应该有的项目结构
 
 ```
 AutoResearcher/                  # "AutoResearcher项目根目录"
