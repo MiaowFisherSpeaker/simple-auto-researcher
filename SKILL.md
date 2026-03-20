@@ -10,8 +10,6 @@ metadata:
           {
             "tools":
               [
-                "web_search",
-                "web_fetch",
                 "exec",
                 "cron",
                 "sessions_spawn",
@@ -52,7 +50,7 @@ metadata:
 
 【⚠️重要】
 
-- 阅读 `PATHS.md` 了解 "AutoResearcher项目根目录"等。
+- 阅读 `PATHS.md` 了解 "AutoResearcher项目根目录"、"小龙虾目录"等。
 - 阅读 `DIRECTIONS.md` 了解用户的"研究方向"（即科研方向）等。
 - 阅读 `PREFERENCES.md` 了解用户的"联网搜索偏好"、"偏好会议或者期刊"、以及最重要的期望`"工作量"`等。
 - 阅读 `GUIDELINES.md` 了解rethink.md综述的写作规范和要求。
@@ -202,7 +200,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 5. 联网搜索微信公众号、知乎、bilibili 是否有相关解读，有则融入笔记，并注明来源。
 6. **记忆沉淀**：每阅读 10 篇论文后，进行一次**跨论文总结**
    - 提取核心发现和创新点
-   - 写入 "小龙虾"目录的`memory/YYYY-MM-DD.md`（每条 ≤ 100 字）
+   - 写入 `"小龙虾目录"/memory/YYYY-MM-DD.md`（每条 ≤ 100 字）
    - 包括：主题、关键方法、相关论文
 7. 更新 `logs/read/read_YYYY-MM-DD.md`，记录已读论文列表
 8. **更新总库**：将论文阅读状态同步到 `papers.md`
@@ -217,7 +215,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 - `notes/YYYY-MM-DD/{论文标题}.md`
 - `logs/read/read_YYYY-MM-DD.md`
 - `papers.md`
-- `memory/YYYY-MM-DD.md`（每 10 篇总结一次）
+- `"小龙虾目录"/memory/YYYY-MM-DD.md`（每 10 篇总结一次）
 
 ---
 
@@ -297,7 +295,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
    - 创新点文档内容，请参考用户偏好的"创新点模板要求"
    - 本阶段不考虑可行性，只要是经过思考后的想法就写了存档，后续会有验证步骤。
    - 结合验证考虑，你的创新点编号不必连续，经过验证后放弃的idea将不会放到idea根目录，而是放到idea/deprecated/目录下，编号也不连续。你无需担心。要见证自己的思考过程，保留所有的idea，无论成功失败。
-3. **记忆沉淀**：将本次创新点相关的核心发现（约 100 字）写入 `memory/YYYY-MM-DD.md`
+3. **记忆沉淀**：将本次创新点相关的核心发现（约 100 字）写入 `"小龙虾目录"/memory/YYYY-MM-DD.md`
    - 包括：创新点名称、核心思路、相关论文引用
 4. **验证**：检查 `idea/all/` 下的待验证创新点
    - 使用用户"联网搜索偏好"搜集资料验证可行性
@@ -318,7 +316,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 - `idea/idea_*.md`（已验证的idea）
 - `idea/deprecated/idea_*.md`（废弃的idea）
 - `idea/viewer/ideaViewer_YYYY-MM-DD.md`
-- `memory/YYYY-MM-DD.md`（增量更新）
+- `"小龙虾目录"/memory/YYYY-MM-DD.md`（增量更新）
 
 ---
 
