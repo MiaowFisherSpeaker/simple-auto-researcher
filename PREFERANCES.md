@@ -1,7 +1,13 @@
 # 用户偏好
 ## 联网搜索偏好
 * 联网搜索优先级：
-    1. acpx opencode exec - 优先，使用一次性对话
+    1. acpx方式
+       1. 同一个session 使用持久会话，每次自动 /clear.操作步骤如下
+          1. 如果没有session: `acpx opencode sessions new --name search`
+          2. 连接session: `acpx opencode session [session_id]`
+          3. 清空上下文: `/clear`
+          4. 执行搜索: "your prompt"
+       2. Fallback：`acpx opencode exec` - 一般第一种行不通时使用。使用一次性对话。缺点，浪费context，以及缓存命中率低。
     2. Tavily skill - 其次（isolated沙箱环境禁止使用）
     3. BraveAPI - 禁止使用（未配置，isolated沙箱环境禁止使用）
     4. Chrome浏览器 - 默认禁止，需要明确指示；如果使用，默认【有头】模式
@@ -69,3 +75,8 @@
 
 ## 创新点个数（注意，限制的是至多多少个）
 * 创新点任务每次至多生成的创新点个数（定义为`"创新点数"`，不区分引号的中英文）， 默认为2
+
+
+## 用户画像
+* 身份： 学生
+* 资源情况： GPU3090*(1-4)
