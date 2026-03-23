@@ -7,16 +7,7 @@ metadata:
       {
         "emoji": "🔬",
         "requires":
-          {
-            "tools":
-              [
-                "exec",
-                "cron",
-                "sessions_spawn",
-                "read",
-                "write",
-              ],
-          },
+          { "tools": ["exec", "cron", "sessions_spawn", "read", "write"] },
       },
   }
 ---
@@ -33,12 +24,12 @@ metadata:
 
 **示例：**
 
-| 写法                      | 含义       | 实际效果（假设工作量=5） |
-| ------------------------- | ---------- | ------------------------ |
-| "工作量" 篇               | 引用变量   | 5 篇                     |
-| `"工作量"`                | 强调变量名 | 工作量                   |
-| 下载 "工作量" 篇论文      | 引用变量   | 下载 5 篇论文            |
-| 当前工作负载为 `"工作量"` | 强调变量名 | 当前工作负载为 工作量    |
+| 写法                      | 含义       | 实际效果（假设"工作量"=5） |
+| ------------------------- | ---------- | -------------------------- |
+| "工作量" 篇               | 引用变量   | 5 篇                       |
+| `"工作量"`                | 强调变量名 | "工作量",即5               |
+| 下载 "工作量" 篇论文      | 引用变量   | 下载 5 篇论文              |
+| 当前工作负载为 `"工作量"` | 强调变量名 | 当前工作负载为 5           |
 
 **说明：**
 
@@ -53,7 +44,7 @@ metadata:
 - 阅读 `PATHS.md` 了解 "AutoResearcher项目根目录"、"小龙虾目录"等。
 - 阅读 `DIRECTIONS.md` 了解用户的"研究方向"（即科研方向）等。
 - 阅读 `PREFERENCES.md` 了解用户的"联网搜索偏好"、"偏好会议或者期刊"、以及最重要的期望`"工作量"`等。
-- 阅读 `GUIDELINES.md` 了解rethink.md综述的写作规范和要求。
+- 阅读 `GUIDELINES.md` 了解rethink.md综述的写作规范和要求、创新点模板要求、papers.csv的要求
 
 ## ⚠️ 重要：工作目录
 
@@ -71,7 +62,7 @@ metadata:
 
 ```
 AutoResearcher/                  # "AutoResearcher项目根目录"
-├── papers.md                    # 论文总库（所有论文元信息汇总）
+├── papers.csv                    # 论文总库（所有论文元信息汇总）
 ├── README.md                    # 项目说明
 ├── files/
 │   ├── downloaded/YYYY-MM-DD/   # 已下载论文 PDF + 阅读笔记
@@ -97,27 +88,31 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 │       └── download_YYYY-MM-DD.md
 │   └── read/                    # 已读论文列表
 │       └── read_YYYY-MM-DD.md
+├── trash/*.md                   # 清理后不符合笔记要求的文档
 ```
 
 ## ⏰ 定时任务配置
 
-### 核心任务（每 10 分钟执行）
+### 核心任务
 
-| 任务 ID | 任务名称              | 间隔    | 每次工作量            |
-| ------- | --------------------- | ------- | --------------------- |
-| 搜索    | AutoResearcher-搜索   | 10 分钟 | `"工作量"` 篇         |
-| 下载    | AutoResearcher-下载   | 10 分钟 | `"工作量"` 篇         |
-| 阅读    | AutoResearcher-阅读   | 10 分钟 | `"工作量"` 篇         |
-| 日归档  | AutoResearcher-日归档 | 10 分钟 | 实时                  |
-| 创新点  | AutoResearcher-创新点 | 10 分钟 | 至多`"创新点数"`个 个 |
+| 任务 ID | 任务名称              | 间隔/时间         | 每次工作量                    |
+| ------- | --------------------- | ----------------- | ----------------------------- |
+| 搜索    | AutoResearcher-搜索   | 每 10 分钟        | `"工作量"` 篇                 |
+| 下载    | AutoResearcher-下载   | 每 10 分钟        | `"工作量"` 篇                 |
+| 阅读    | AutoResearcher-阅读   | 每 10 分钟        | `"工作量"` 篇                 |
+| 日归档  | AutoResearcher-日归档 | 每 30 分钟        | 根据未归档的文章数决定        |
+| 创新点  | AutoResearcher-创新点 | 每日10：00和22:00 | 每次至多`"创新点数"`个 创新点 |
 
-### 周期性任务
+### 周期性任务/其他任务
 
-| 任务    | 频率         | 说明                                          |
-| ------- | ------------ | --------------------------------------------- |
-| Rethink | 每 3 小时    | 知识体系重构，上限 10 万字                    |
-| 备份    | 每日 03:00   | 备份 daily/ + weekly/ + rethink.md，最多 5 份 |
-| 周归档  | 每周日 21:00 | 生成周小结                                    |
+| 任务       | 任务名称                  | 频率         | 说明                                                                                                                                                      |
+| ---------- | ------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rethink    | AutoResearcher-Rethink    | 每 3 小时    | 知识体系重构，上限 10 万字                                                                                                                                |
+| 备份       | AutoResearcher-备份       | 每日 03:00   | 备份 daily/ + weekly/ + rethink.md，最多 5 份                                                                                                             |
+| 周归档     | AutoResearcher-周归档     | 每周日 21:00 | 生成周小结                                                                                                                                                |
+| 创新点审查 | AutoResearcher-创新点审查 | 每天22:00    | 对已有的创新点再一次进行审查                                                                                                                              |
+| 清理       | AutoResearcher-清理       | 每12小时     | 清理.openclaw目录、已经阅读并归档的PDF；清理notes目录下的不是论文阅读笔记的笔记，即标题显然不是论文标题的markdown，如果进行了清理，立马进行一次papers整理 |
+| papers整理 | AutoResearcher-papers整理 | 每12小时     | 对整理的papers.csv进行整理，确保各个位置的论文及其数量一一对应                                                                                            |
 
 ## 📋 任务详细说明
 
@@ -129,17 +124,30 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 **执行步骤**：
 
-1. 检查 `logs/search/search_YYYY-MM-DD.md` 中已标注为"已下载"的论文数量
-2. 按照上述工作量安排，如果待下载论文的数量，超过了 `"工作量"` 篇，则可以跳过本次搜索任务，并做好日志记录。确保本次搜索能产出 **`"工作量"` 篇新的待下载论文**。
-3. 根据用户"联网搜索偏好" 搜索 **`"工作量"` 篇**关于用户"研究方向"的最新论文（根据用户"偏好会议或者期刊"以及用户"论文要求"偏好的"论文时间年限"进行搜索）
-4. 将搜索结果记录到 `logs/search/search_YYYY-MM-DD.md`（动态获取当前日期），包含：标题、作者、年份、链接、状态（待下载）
-5. 检查 `files/downloaded/`对应的日期目录是否已有，已有的跳过
-6. **更新总库**：将新搜索的论文添加到 `papers.md`进行妥善的管理。
+1. 【待读检查】
+   - 读取 `papers.csv`，统计"未阅读"数量
+   - 如果未读 ≥ `"工作量"` → 记录日志，跳出
+
+2. 【待下载检查】
+   - 统计 `logs/search/search_YYYY-MM-DD.md` 中"待下载"论文数量
+   - 如果待下载 ≥ `"工作量"` → 记录日志，跳出
+
+3. 【搜索 + 查重】（最多循环3次）
+   - （根据用户"偏好会议或者期刊"以及用户"论文要求"偏好的"论文时间年限"进行搜索）搜索 `"工作量"`\*2 篇新论文。
+   - 对每篇论文：
+     - 检查 papers.csv 是否已存在（已存在 → 跳过）
+     - 检查 `logs/download/download_YYYY-MM-DD.md`（动态获取当前日期） 是否已下载（已下载 → 标记已下载）
+   - 多余论文不计入不统计。
+   - 累计新待下载论文数
+
+4. 【记录 + 更新】
+   - 写入 `logs/search/search_YYYY-MM-DD.md`，包含：标题、作者、年份、链接、状态（待下载）
+   - 增量更新 `papers.csv`
 
 **输出文件**：
 
 - `logs/search/search_YYYY-MM-DD.md`
-- `papers.md`
+- `papers.csv`
 
 ---
 
@@ -161,14 +169,14 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
    - 例如：`files/downloaded/2026-03-18/Statistical_Analysis_Inverse_Entropy_RL.pdf`
 5. 如果下载失败，记录到 `files/tobedownloaded/YYYY-MM-DD.md`，包含：标题、作者、年份、链接、失败原因
 6. 更新 `logs/download/download_YYYY-MM-DD.md`，记录已下载论文列表
-7. **更新总库**：将下载状态同步到 `papers.md`
+7. 按照GUIDELINES的 "papers.csv要求" **更新总库**：将下载状态同步到 `papers.csv`，并标记阅读与归档状态。
 
 **输出文件**：
 
 - `files/downloaded/YYYY-MM-DD/*.pdf`
 - `files/tobedownloaded/YYYY-MM-DD.md`
 - `logs/download/download_YYYY-MM-DD.md`
-- `papers.md`
+- `papers.csv`
 
 ---
 
@@ -185,10 +193,11 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 - **禁止**在文件名中加入 YYYY-MM-DD 或 MM-DD 等日期前缀或者后缀！
 - **禁止**继续创建子目录！
 - notes下子目录名使用格式示例：2026-03-18（YYYY-MM-DD）
+- **禁止**存放非论文笔记文件！
 
 **执行步骤**：
 
-1. **【重要】检查 papers.md**：读取 `papers.md`，筛选出未标记"已阅读"的论文
+1. **【重要】检查 papers.csv**：读取 `papers.csv`，筛选出未标记"已阅读"的论文，即待阅读论文。
 2. 遍历 `files/downloaded/`每个日期目录，看论文数（pdf数量）与notes目录下对应日期的md文件数量是否一致。优先遍历日期最近的目录。
    - 如果不一致，说明有未阅读的论文，收集`"工作量"`篇未阅读的论文信息，继续执行后续步骤
    - 如果一致，说明没有未阅读的论文，可以跳过本次阅读任务，continue到下一个日期目录。
@@ -201,9 +210,10 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 6. **记忆沉淀**：每阅读 10 篇论文后，进行一次**跨论文总结**
    - 提取核心发现和创新点
    - 写入 `"小龙虾目录"/memory/YYYY-MM-DD.md`（每条 ≤ 100 字）
-   - 包括：主题、关键方法、相关论文
+   - 包括：主题、面对的问题、解决了什么局限、关键方法、相关论文。
+   - 要简略，不是笔记。
 7. 更新 `logs/read/read_YYYY-MM-DD.md`，记录已读论文列表
-8. **更新总库**：将论文阅读状态同步到 `papers.md`
+8. **更新总库**：将论文阅读状态同步到 `papers.csv`
 
 **⚠️ Token 节省策略**：
 
@@ -214,41 +224,35 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 - `notes/YYYY-MM-DD/{论文标题}.md`
 - `logs/read/read_YYYY-MM-DD.md`
-- `papers.md`
-- `"小龙虾目录"/memory/YYYY-MM-DD.md`（每 10 篇总结一次）
+- `papers.csv`
+- `"小龙虾目录"/memory/YYYY-MM-DD.md`（每10篇写入一次）
 
 ---
 
 ### 📅 日归档任务
 
-本质上，是单轮循环的归档任务，按照增量方式，在每日的日归档文件中不断追加新的论文归档内容。
-**触发条件**：每 10 分钟
+本质上，是对已阅读论文的归档任务，按照增量方式，在每日的日归档文件中不断追加新的论文归档内容。
+**触发条件**：每 30 分钟
 
 **工作目录**：`"AutoResearcher项目根目录"`
 
 **⚠️ 核心理解：归档 = 增量添加（Add），不是重写！**
 
-- 归档是对今日所读论文的**精简凝练表达**
+- 归档是对本批待归档论文的**精简凝练表达**
 - 归档是**按主题分类归类**，方便后续 Rethink
 - **归档要细致全面，没有遗漏！** 每篇论文都要归档，不要遗漏任何一篇！
 - 如果觉得某篇不重要，**单独列一个分类并说明理由**
+- 如果已有分类不足以概括这份工作，可以新开一个分类
 
 **精简格式模板**（每篇论文 3-5 行）：
-
-```markdown
-### {论文标题}
-
-- **角度/方法**：一句话概括切入点
-- **核心贡献**：主要创新点
-- **相关方向**：属于哪个研究方向
-```
+参考 GUIDELINES 的 日归档格式模板
 
 **分类维度**：
-参考用户偏好的"研究方向的分类维度"。
+参考用户偏好的"研究方向的分类维度"、可以自己加上自己的分类。
 
 **执行步骤**：
 
-1. 读取 `papers.md` 和 `logs/read/read_YYYY-MM-DD.md`，统计本日已阅读但未归档的论文数量
+1. 读取 `papers.csv` 和 `logs/read/read_YYYY-MM-DD.md`，统计本日已阅读但未归档的论文数量
 2. 如果未归档论文数 ≥ `"工作量"` 篇，执行后续归档步骤，对的历史未归档的都得考虑，这就是实时的由来；否则跳过本次任务并记录日志
 3. 检查 `knowledgeOutput/daily/` 目录下今日是否已有归档文件（YYYY-MM-DD.md）
 4. **增量追加**未归档的论文；如果没有，**创建新文件**
@@ -267,13 +271,13 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 **输出文件**：
 
 - `knowledgeOutput/daily/YYYY-MM-DD.md`（增量追加）
-- `papers.md`（更新归档状态）
+- `papers.csv`（更新归档状态）
 
 ---
 
 ### 💡 创新点任务
 
-**触发条件**：每 10 分钟
+**触发条件**：每日10：00和22:00
 
 **工作目录**：`"AutoResearcher项目根目录"`
 
@@ -281,7 +285,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 1. **生成**：基于以下内容生成至多 **`"创新点数"`**个创新点
    - 基于近7日归档（`knowledgeOutput/daily/*.md`以及`knowledgeOutput/weekly/*.md`）（日期约束）；
-   - 结合今日新阅读的论文；
+   - 结合昨日和今日所阅读的论文；
    - 结合之前的 rethink.md（知识体系）
    - **重要**：不要一次性读取所有归档！
    - 优先读取 rethink.md + 最近 3 天归档
@@ -289,7 +293,10 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 2. **保存到** `idea/all/*.md`（按字母+6位数字命名）
    - 创新点文档命名规范：
      - `idea_a000001.md`（a开头，后面6位数字递增）
-     - a后面如果超过999999个创新点，则继续使用b开头,然后是999999个结束后到c,以此类推到z，当二十六个字母结束后按如下顺序aa,ab,...az,ba,...bz,...依此类推。
+     - **【编号扫描范围-必须遵守】**：确定下一个编号时，必须扫描 `idea/` 根目录 + `idea/all/` + `idea/deprecated/` + `idea/viewer_backup/` **所有子目录**下的所有文件，从所有文件中提取最大编号。**绝对不能只扫描 `idea/all/` 一个目录！**
+     - **重要**：必须先遍历完a的前999999个编号（a000001~a999999），才能切换到b。a000001~a999999都没用完时，禁止使用b、aa等后续前缀！
+     - 例如：a000001 → a000002 → ... → a999999 → b000001 → ... → z999999 → aa000001 → ...
+     - 如果目录中最大编号是a000341，下一个必须是a000342，绝不能是b或aa
      - 例如：`idea_a000001.md`、`idea_a000002.md`、`idea_b000001.md`、`idea_aa000001.md`
      - 如果文档里已经有idea文件了，计数要从目录中所有文件中最大的数往后计算，比如说遍历所有idea子目录然后也看了idea根目录找到最大的是a...11,那么下一个生成的就应该是a...12,如果是b999999,那么应该有能力且应该推算出下一个是c000001，后面以此类推
    - 创新点文档内容，请参考用户偏好的"创新点模板要求"
@@ -347,7 +354,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 - `idea/idea_*.md`（已验证的idea经过验证后还放这里）
 - `idea/deprecated/idea_*.md`（已验证的idea经过验证后废弃了）
 - `idea/viewer/ideaViewer_YYYY-MM-DD.md` （做好记录）
-- `memory/YYYY-MM-DD.md`（增量更新，但是这里要做批判性思考）
+- `"小龙虾目录"/memory/YYYY-MM-DD.md`（增量更新，但是这里要做批判性思考）
 
 ---
 
@@ -453,6 +460,137 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 ---
 
+### 🧹 清理任务
+
+**触发条件**：每 12 小时
+
+**前置条件**：如果上次清理后有新归档的 PDF，才执行归档 PDF 清理
+
+**工作目录**：`"AutoResearcher项目根目录"`
+
+**执行步骤**：
+
+1. 【清理 .openclaw 目录】
+
+   搜索 "AutoResearcher项目根目录" 下所有 .openclaw 相关文件/目录
+   如果在 files/downloaded/ 外发现 PDF 文件：
+   - 进行清除，如果不放心，则放到"小龙虾目录"一个文件夹中。
+
+2. 【清理已归档 PDF】
+
+   读取 papers.csv，筛选状态="已归档"的论文。
+   对每篇论文：
+   检查 files/downloaded/ 中对应 PDF 是否存在
+   存在 → 删除（节省空间）
+
+3. 【清理非论文笔记】（核心）
+
+   遍历 notes/YYYY-MM-DD/ 下所有 .md 文件
+   对每个文件，检测标题是否为论文标题，检测内容是否为单篇论文的阅读笔记。简单处理方式如下：
+   - 由于论文阅读时，笔记与论文标题一致，只是后面改成了.md，所以只要检查`paper.csv`里面的论文下载标题名称即可。
+
+   分类处理：
+   - 可能是有效笔记但标题不规范 → 保留，待人工确认
+   - 明显不是论文笔记 → 移动到trash/目录
+
+4. 【判断是否触发 papers 整理】
+
+   如果有以下情况，触发 papers整理 任务：
+   - 清理了 .openclaw 目录的文件
+   - 删除了归档 PDF
+   - 移动了非论文笔记
+
+   触发方式：在日志中记录「建议触发 papers整理」，由下一个任务轮次执行
+
+5. 【输出清理报告】
+
+   清理完成：
+   - .openclaw 清理：X 个文件
+   - 删除归档 PDF：X 个 转移至/trash
+   - 移动非论文笔记：X 个
+   - 触发 papers整理：是/否
+
+**⚠️ 注意事项**：
+
+- 删除 PDF 前必须确认 papers.csv 中状态为"已归档"
+- 移动文件时保留原文件的修改时间
+- 非论文笔记判断要保守，模棱两可的保留
+
+### 📊 papers整理任务
+
+**触发条件**：每 12 小时（由清理任务触发时优先执行）
+
+**前置条件**：上次整理后有新变化（下载/阅读/归档）
+
+**工作目录**：`"AutoResearcher项目根目录"`
+
+**执行步骤**：
+
+1. 【数据统计】
+   - 统计 A：files/downloaded/\*\*/\*.pdf 总数
+   - 统计 B：notes/\*\*/\*.md 总数
+   - 统计 C：papers.csv 总记录数
+   - 统计 D：papers.csv 中状态分布
+   - 待下载：X
+   - 已下载：X
+   - 已阅读：X
+   - 已归档：X
+
+2. 【一致性检查】
+
+   对比 A、B、C 三者是否一致：
+   - 情况1：A = B = C → 一致，无需操作
+
+   - 情况2：A > B → 有 PDF 无笔记：检查 papers.csv 对应状态。
+     - 如果已阅读 → 笔记丢失，尝试从 logs/read/ 恢复路径
+     - 如果未阅读 → 正常→ 记录异常
+   - 情况3：A < B → 有笔记无 PDF：
+     - 如果 papers.csv 显示已归档 → 可能已被清理，正常
+     - 如果未归档 → 记录异常
+   - 情况4：C 与 A/B 差异大 → papers.csv 记录丢失或多余，需要修复
+
+3. 【修复缺失项】
+   - 3.1 有 PDF 但无笔记（且 papers.csv 显示已阅读）
+     → 标记该论文为「笔记丢失」
+     → 保留 PDF，重新生成笔记
+   - 3.2 有笔记但无 PDF（且 papers.csv 未归档）
+     → 检查是否因下载失败导致
+     → 记录到 files/tobedownloaded/
+   - 3.3 papers.csv 记录缺失
+     → 扫描 files/downloaded/ 和 notes/
+     → 补充 papers.csv 记录
+   - 3.4 papers.csv 有重复记录
+     → 按 ID 去重，保留最新状态
+
+4. 【状态同步】
+
+   遍历 papers.csv 每条记录对比实际文件状态，更新 papers.csv：
+   - notes/ 有对应 .md → 确保状态为"已阅读"
+   - files/downloaded/ 有对应 .pdf → 确保状态为"已下载"
+   - 两者都有 + 已归档 → 确保归档状态正确
+
+5. 【输出整理报告】
+
+   papers整理完成：
+   - 📁 文件统计：
+     - PDF 总数：X
+     - 笔记总数：X
+     - papers.csv 记录：X
+   - 📋 状态分布：
+     - 待下载：X | 已下载：X | 已阅读：X | 已归档：X
+   - 🔍 一致性：
+     - files/ vs notes/：✓一致 / ✗ 差异 X 个
+     - papers.csv vs 文件：✓一致 / ✗ 差异 X 个
+     - ⚠️ 异常项：X 个（见日志）
+
+**⚠️ 注意事项**：
+
+- papers.csv 是核心，不要轻易删除记录
+- 修复时遵循「文件优先」原则：文件存在但状态不对 → 更新状态
+- 去重时保留状态最新的那条记录
+
+---
+
 ## 🚀 使用方式
 
 ### 研究方向
@@ -535,6 +673,22 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 }
 ```
 
+10. 清理任务
+
+```json
+{
+  "task": "执行 AutoResearcher 清理任务"
+}
+```
+
+11. papers整理
+
+```json
+{
+  "task": "执行 AutoResearcher papers整理任务"
+}
+```
+
 ## 🎮 控制命令
 
 通过以下任务消息控制定时任务系统：
@@ -548,6 +702,8 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 | 手动触发某任务   | "AutoResearcher 控制：立即执行【任务名】任务" |
 | 查看任务状态     | "AutoResearcher 控制：查看当前定时任务状态"   |
 | 进行创新点审查   | "AutoResearcher 控制：进行创新点审查"         |
+| 进行清理任务     | "AutoResearcher 控制：进行清理"               |
+| 进行papers整理   | "AutoResearcher 控制：进行papers整理"         |
 
 ### 执行逻辑
 
@@ -560,16 +716,16 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 ### 首次配置
 
-手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 9 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。任务的命名方式都要按照"autoresearcher-{job_name}"这样子，方便统一管理。
+手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 11 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。任务的命名方式都要按照"autoresearcher-{job_name}"这样子，方便统一管理。
 
 ## 📝 日志文件
 
-| 文件                                   | 说明             |
-| -------------------------------------- | ---------------- |
-| `logs/search/search_YYYY-MM-DD.md`     | 搜索记录         |
-| `logs/download/download_YYYY-MM-DD.md` | 下载记录         |
-| `logs/read/read_YYYY-MM-DD.md`         | 已读论文列表     |
-| `papers.md`                            | 类似数据库的文档 |
+| 文件                                   | 说明           |
+| -------------------------------------- | -------------- |
+| `logs/search/search_YYYY-MM-DD.md`     | 搜索记录       |
+| `logs/download/download_YYYY-MM-DD.md` | 下载记录       |
+| `logs/read/read_YYYY-MM-DD.md`         | 已读论文列表   |
+| `papers.csv`                           | 论文元数据存储 |
 
 ## ⚙️ 配置要求
 
