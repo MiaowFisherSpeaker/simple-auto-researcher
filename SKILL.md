@@ -92,7 +92,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 ├── projects/
 │   ├── {project_name}_{idea_id}/ #可以运行的idea的demo完整框架
 │   ├── {project_name}_{idea_id}.ipynb #可以在colab上运行的jupyter notebook
-│   └── datasets/                # 下载的数据集，不允许过大  
+│   └── datasets/                # 下载的数据集，不允许过大
 
 ```
 
@@ -104,10 +104,10 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 | 任务 ID | 任务名称              | 间隔/时间         | 每次工作量                    |
 | ------- | --------------------- | ----------------- | ----------------------------- |
-| 搜索    | AutoResearcher-搜索   | 每 12 小时        | `"工作量"`\*4\*10 篇                 |
-| 下载    | AutoResearcher-下载   | 每 30 分钟        | `"工作量"`\*2 篇                 |
+| 搜索    | AutoResearcher-搜索   | 每 12 小时        | `"工作量"`\*4\*10 篇          |
+| 下载    | AutoResearcher-下载   | 每 30 分钟        | `"工作量"`\*2 篇              |
 | 阅读    | AutoResearcher-阅读   | 每 15 分钟        | `"工作量"` 篇                 |
-| 日归档  | AutoResearcher-日归档 | 每 1 小时        | 根据未归档的文章数决定        |
+| 日归档  | AutoResearcher-日归档 | 每 1 小时         | 根据未归档的文章数决定        |
 | 创新点  | AutoResearcher-创新点 | 每日10：00和22:00 | 每次至多`"创新点数"`个 创新点 |
 
 ### 周期性任务/其他任务
@@ -133,7 +133,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 1. 【待读检查】
    - 读取 `papers.csv`，统计"未阅读"数量
-   - 如果未读 ≥ `"工作量"`\*4\*12  → 记录日志，跳出，说明当前论文够12小时内阅读
+   - 如果未读 ≥ `"工作量"`\*4\*12 → 记录日志，跳出，说明当前论文够12小时内阅读
 
 2. 【搜索 + 查重】（最多循环3次）
    - （根据用户"偏好会议或者期刊"以及用户"论文要求"偏好的"论文时间年限"进行搜索）搜索 `"工作量"`\*4\*10篇新论文。
@@ -178,7 +178,6 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
    - 下载成功的论文标记为`已下载`。填写`下载日期`
    - 存储论文pdf路径
 
-
 **输出文件**：
 
 - `files/downloaded/*.pdf`
@@ -210,7 +209,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 3. 【文章阅读】使用用户偏好的"论文阅读工具"阅读论文，按照用户偏好的"论文笔记要求"，提取关键内容进行适当分析并保存为 `notes/YYYY-MM-DD/{论文标题}.md`，
    - **【重要】YYYY-MM-DD 文章何时读，就存到何日**。例如：PDF 3月17号进行了对应的阅读任务 → 笔记保存到 `notes/2026-03-17/`
 4. 【信息补充】通过用户偏好的"联网搜索偏好"联网搜索：
-   - 渠道：微信公众号、知乎、bilibili等 
+   - 渠道：微信公众号、知乎、bilibili等
    - 检查：是否有相关解读，有则融入笔记，并**注明来源**。
 5. 【**记忆沉淀**】：每阅读 20 篇论文后，进行一次**跨论文总结**
    - 提取核心发现和创新点
@@ -219,7 +218,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
    - 要简略，不是笔记。
 6. 【日志记录】更新 `logs/read/read_YYYY-MM-DD.md`，做好日志
 7. 【**更新总库**】：将论文阅读状态同步到 `papers.csv`，
-   - 其中一定要存入`笔记`列信息 
+   - 其中一定要存入`笔记`列信息
    - 阅读过的论文要将`阅读状态`改为`已阅读`，填写`阅读日期`
    - 进行"papers.csv要求"的其他内容补充与检查
 
@@ -263,10 +262,10 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 1. 【未归档统计】读取 `papers.csv` 统计`未归档`论文
    - 得到对应的`笔记`（笔记保存位置）。
-      - 得到对应的`notes/YYYY-MM-DD/*.md`
+     - 得到对应的`notes/YYYY-MM-DD/*.md`
    - 并决定归档执行次数
-      - 如果`阅读日期`分布在同一天，执行一次归档。
-      - 如果`阅读日期`分布在不同天，执行最多3次分日期归档。
+     - 如果`阅读日期`分布在同一天，执行一次归档。
+     - 如果`阅读日期`分布在不同天，执行最多3次分日期归档。
 2. 【归档文件初始化】检查 `knowledgeOutput/daily/` 目录下今日是否已有归档文件（YYYY-MM-DD.md）
    - 如果有**增量追加**未归档的论文；
    - 如果没有，**目录下创建新文件YYYY-MM-DD.md**
@@ -329,9 +328,9 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 4. **验证**：检查 `idea/all/` 下的待验证创新点
    - 使用用户"联网搜索偏好"搜集资料验证可行性
    - 结果保存到 `idea/viewer/ideaViewer_YYYY-MM-DD.md`
-   - 验证标准：①问题出发的背景 ②前人是否已做 ③理论可行性  ④实际可操作性
+   - 验证标准：①问题出发的背景 ②前人是否已做 ③理论可行性 ④实际可操作性
    - 验证后：可行 → 移至 `idea/` 根目录；不可行/已有人做的差不多了 → 移至 `idea/deprecated/`
-      - 经过验证后放弃的idea将不会放到idea根目录，而是放到idea/deprecated/目录下，编号也不连续。你无需担心。要见证自己的思考过程，保留所有的idea，无论成功失败。
+     - 经过验证后放弃的idea将不会放到idea根目录，而是放到idea/deprecated/目录下，编号也不连续。你无需担心。要见证自己的思考过程，保留所有的idea，无论成功失败。
 5. **通知**：验证完成后，根据用户的"消息通知偏好"按照"通知内容"的指定格式，输出通知消息。
 
 **⚠️ Token 节省策略**：
@@ -366,15 +365,15 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
    - 验证后：可行 → 不变；不可行/已有人做的差不多了 → 移至 `idea/deprecated/`并及时做好记录
 2. 【**创新点的实现**】：将已经验证的创新点转换为可以实现的代码。
    - 如果创新点的可行性非常强，生成一个demo项目
-      - 项目路径：projects/{project_name}_{idea_id}/
-      - 项目的README文档里注明基础代码源自哪个仓库/改自哪个仓库，使用的哪部分知识，需要了解的代码背景等便于用户理解代码。
-      - 项目的README文档写清楚项目的目录结构
-      - 项目包含较为完整的测试代码
+     - 项目路径：projects/{project*name}*{idea_id}/
+     - 项目的README文档里注明基础代码源自哪个仓库/改自哪个仓库，使用的哪部分知识，需要了解的代码背景等便于用户理解代码。
+     - 项目的README文档写清楚项目的目录结构
+     - 项目包含较为完整的测试代码
    - 为了方便进一步验证，需要写成一份可以python运行的笔记本
-      - 笔记本路径：projects/{project_name}_{idea_id}.ipynb
-      - 要求，可以在colab上运行。因此需要明确环境依赖，并在笔记本里写上安装环境的相关代码。
+     - 笔记本路径：projects/{project*name}*{idea_id}.ipynb
+     - 要求，可以在colab上运行。因此需要明确环境依赖，并在笔记本里写上安装环境的相关代码。
    - 数据集补充，遵循最小实现原则，使用创新点所涉及到的最容易实现的小体量数据集。下载到本地的datasets
-      - 数据集路径：projects/datasets/
+     - 数据集路径：projects/datasets/
 
 3. **通知**：验证完成后，根据用户的"消息通知偏好"按照"通知内容"的指定格式，输出通知消息。如果是再次审查失败的，也要通知。
 
@@ -393,6 +392,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 - `projects/{project_name}_{idea_id}/` (完整的demo项目)
 - `projects/{project_name}_{idea_id}.ipynb`(可以在colab上运行的jupyter notebook)
 - `projects/datasets/`（下载到本地的数据集）
+
 ---
 
 ### 🧠 Rethink 任务（知识体系重构）
@@ -753,7 +753,7 @@ AutoResearcher/                  # "AutoResearcher项目根目录"
 
 ### 首次配置
 
-手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 11 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。任务的命名方式都要按照"autoresearcher-{job_name}"这样子，方便统一管理。
+手动对 agent 说一次："使用auto-researcher这个skill, 启动全部定时任务"，agent 就会调用 cron add 把 11 个 job 全部注册进去。之后每次 cron 触发时 agent 自动读该skill目录下最新的 PATHS.md / PREFERENCES.md/ DIRECTIONS.md / GUIDELINES.md，改配置无需重建。任务的命名方式都要按照"autoresearcher-{job_name}"这样子，方便统一管理。
 
 ## 📝 日志文件
 
